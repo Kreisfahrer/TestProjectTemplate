@@ -3,6 +3,8 @@ package base;
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeMethod;
 
+import static com.codeborne.selenide.Selenide.open;
+
 public class TestBase {
     private static final String URL = "";
 
@@ -10,5 +12,6 @@ public class TestBase {
     public void setup() {
         Configuration.baseUrl = URL;
         Configuration.timeout = 10000;
+        open(Configuration.baseUrl);
     }
 }
