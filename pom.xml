@@ -12,12 +12,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <allure.version>1.3.9</allure.version>
+        <aspectj.version>1.7.4</aspectj.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>testng</artifactId>
+                    <groupId>testng</groupId>
+                </exclusion>
+            </exclusions>
             <version>LATEST</version>
         </dependency>
         <dependency>
@@ -28,7 +40,13 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>LATEST</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+            </exclusions>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 
@@ -39,13 +57,16 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.16</version>
                 <configuration>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                        -Dmaven.browser
+                    </argLine>
                     <properties>
                         <property>
                             <name>listener</name>
                             <value>ru.yandex.qatools.allure.testng.AllureTestListener</value>
                         </property>
                     </properties>
-                    <argLine>-Dmaven.browser</argLine>
                 </configuration>
             </plugin>
         </plugins>
@@ -57,7 +78,7 @@
             <plugin>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
-                <version>LATEST</version>
+                <version>${allure.version}</version>
             </plugin>
         </plugins>
     </reporting>

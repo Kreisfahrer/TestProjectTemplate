@@ -1,6 +1,8 @@
 package pages;
 
-public class LoginPage {
+import base.PageBase;
+
+public class LoginPage extends PageBase {
 //    Sample code
 //    private static final By NAME_FIELD = get("LoginPage.UsernameField");
 //    private static final By PASS_FIELD = get("LoginPage.PasswordField");
