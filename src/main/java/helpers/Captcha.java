@@ -1,8 +1,5 @@
 package helpers;
 
-/**
- * Created by vadimzubovich on 3/31/2015.
- */
 public class Captcha {
 
     public static String getCaptchaResult(String str) {

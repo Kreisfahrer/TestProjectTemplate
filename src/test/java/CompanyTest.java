@@ -4,9 +4,7 @@ import com.codeborne.selenide.testng.ScreenShooter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.ContactUsPage;
-import pages.Header;
-import pages.TeamsPage;
+import pages.*;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 
@@ -38,15 +36,6 @@ public class CompanyTest extends TestBase {
         sleep(1000);
         TeamsPage.openDotNetTab();
         sleep(1000);
-
-        /*TeamsPage.getInTouch(
-                "Vadim",
-                "bad@email.com",
-                "1234567890",
-                "This is my comment, there are many like it but this one is mine"
-        );
-
-        sleep(3000);*/
     }
 
     @Features("Team page")
@@ -54,8 +43,28 @@ public class CompanyTest extends TestBase {
     @Test
     public void checkGetInTouchValidation() {
         TeamsPage.inputCapthcaWithEmptyFields();
-        ContactUsPage.verifyErrorMessages();
+        ContactUsPage.verifyErrorMessages("Captcha is correct");
     }
 
+    @Features("Team page")
+    @Stories("Check error messages: Captcha is incorrect")
+    @Test
+    public void checkGetInTouchValidationCaptcha() {
+        TeamsPage.getInTouch("Romero10",
+                "romero10@email.com",
+                "12345",
+                "This is my comment, there are many like it but this one is mine");
+        ContactUsPage.verifyErrorMessages("Captcha is incorrect");
+    }
 
+    @Features("Team page")
+    @Stories("Check error messages: Email is incorrect")
+    @Test
+    public void checkGetInTouchValidationEmail() {
+        TeamsPage.getInTouch("Romero10",
+                "romero10@emailcom",
+                "12345",
+                "This is my comment, there are many like it but this one is mine");
+        ContactUsPage.verifyErrorMessages("Captcha is incorrect");
+    }
 }

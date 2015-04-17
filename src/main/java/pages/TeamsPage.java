@@ -71,8 +71,9 @@ public class TeamsPage extends PageBase {
         $(EMAIL_INPUT).sendKeys(email);
         $(PHONE_INPUT).sendKeys(phone);
         $(COMMENTS_INPUT).sendKeys(comment);
-        $(CAPTCHA_INPUT).sendKeys(Captcha.getCaptchaResult($(CAPTCHA_BLOCK).getText()));
+        $(CAPTCHA_INPUT).sendKeys((Integer.parseInt(Captcha.getCaptchaResult($(CAPTCHA_BLOCK).getText())) + 1)+"");
         $(GET_IN_TOUCH_BTN).click();
+        ContactUsPage.shouldAppear();
     }
 
     public static void inputCapthcaWithEmptyFields() {
